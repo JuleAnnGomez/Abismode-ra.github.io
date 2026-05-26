@@ -9,46 +9,46 @@
 </head>
 <body>
 <tw-story><noscript><tw-noscript>JavaScript needs to be enabled to play El Abismo de Æra - Demo de validación hasta Murmullo Gris.</tw-noscript></noscript></tw-story>
-<tw-storydata name="El Abismo de Æra - Demo de validación hasta Murmullo Gris" startnode="1" creator="Twine" creator-version="2.12.0" format="Harlowe" format-version="3.3.9" ifid="14B1BC60-6EC1-4C8C-98DB-4990789149F9" options="" tags="" zoom="1" hidden><style role="stylesheet" id="twine-user-stylesheet" type="text/twine-css"></style><script role="script" id="twine-user-script" type="text/twine-javascript">function obtenerTextoTwine(id) {
-  const elemento = document.getElementById(id);
+<tw-storydata name="El Abismo de Æra - Demo de validación hasta Murmullo Gris" startnode="1" creator="Twine" creator-version="2.12.0" format="Harlowe" format-version="3.3.9" ifid="14B1BC60-6EC1-4C8C-98DB-4990789149F9" options="" tags="" zoom="1" hidden><style role="stylesheet" id="twine-user-stylesheet" type="text/twine-css"></style><script role="script" id="twine-user-script" type="text/twine-javascript">function leerDatoTwine(nombreHook) {
+  const elemento = document.querySelector('tw-hook[name="' + nombreHook + '"]');
   return elemento ? elemento.textContent.trim() : '';
 }
 
-function asignarValor(inputId, spanId) {
-  const input = document.getElementById(inputId);
-  if (input) {
-    input.value = obtenerTextoTwine(spanId);
+function llenarCampo(idCampo, nombreHook) {
+  const campo = document.getElementById(idCampo);
+  if (campo) {
+    campo.value = leerDatoTwine(nombreHook);
   }
 }
 
 window.enviarResultadosTwine = function () {
-  const idParticipante = obtenerTextoTwine('tw_id_participante');
+  llenarCampo('f_id_participante', 'tw_id_participante');
+  llenarCampo('f_perfil_principal', 'tw_perfil_principal');
+  llenarCampo('f_escucha', 'tw_escucha');
+  llenarCampo('f_cuidado', 'tw_cuidado');
+  llenarCampo('f_control', 'tw_control');
+  llenarCampo('f_riesgo', 'tw_riesgo');
+  llenarCampo('f_exploracion', 'tw_exploracion');
+  llenarCampo('f_memoria', 'tw_memoria');
+  llenarCampo('f_sigilo', 'tw_sigilo');
+  llenarCampo('f_vinculo', 'tw_vinculo');
+  llenarCampo('f_navegacion_auxiliar', 'tw_navegacion_auxiliar');
+  llenarCampo('f_reintentos', 'tw_reintentos');
+  llenarCampo('f_ruta_compacta', 'tw_ruta_compacta');
+  llenarCampo('f_registro_exportable', 'tw_registro_exportable');
 
-  if (!idParticipante || idParticipante.includes('(print:')) {
-    alert('Los datos todavía no se han generado correctamente. Revisa que las variables de Twine estén visibles en el nodo final.');
+  const id = document.getElementById('f_id_participante').value;
+
+  if (!id || id.includes('(print:')) {
+    alert('Los datos no se cargaron bien. Revisa que estés en el resultado final.');
     return;
   }
 
-  asignarValor('f_id_participante', 'tw_id_participante');
-  asignarValor('f_perfil_principal', 'tw_perfil_principal');
-  asignarValor('f_escucha', 'tw_escucha');
-  asignarValor('f_cuidado', 'tw_cuidado');
-  asignarValor('f_control', 'tw_control');
-  asignarValor('f_riesgo', 'tw_riesgo');
-  asignarValor('f_exploracion', 'tw_exploracion');
-  asignarValor('f_memoria', 'tw_memoria');
-  asignarValor('f_sigilo', 'tw_sigilo');
-  asignarValor('f_vinculo', 'tw_vinculo');
-  asignarValor('f_navegacion_auxiliar', 'tw_navegacion_auxiliar');
-  asignarValor('f_reintentos', 'tw_reintentos');
-  asignarValor('f_ruta_compacta', 'tw_ruta_compacta');
-  asignarValor('f_registro_exportable', 'tw_registro_exportable');
-
   document.getElementById('form_resultados_twine').submit();
 
-  const estado = document.getElementById('estado_envio_twine');
+  const estado = document.getElementById('aera_estado_envio');
   if (estado) {
-    estado.textContent = 'Resultados enviados correctamente. Gracias por participar.';
+    estado.textContent = 'Resultados enviados. Gracias por participar.';
   }
 };</script><tw-tag name="Salida" color="green"></tw-tag><tw-tag name="Decision" color="orange"></tw-tag><tw-tag name="Canon" color="blue"></tw-tag><tw-tag name="Consecuencia" color="gray"></tw-tag><tw-tag name="Fallo" color="red"></tw-tag><tw-tag name="Mision" color="purple"></tw-tag><tw-tag name="Final" color="yellow"></tw-tag><tw-tag name="Lore" color="blue"></tw-tag><tw-tag name="Info" color="gray"></tw-tag><tw-passagedata pid="1" name="Inicio" tags="Salida" position="200,300" size="160,120">(set: $sigilo to 0)
 (set: $tonalith to 0)
@@ -2152,6 +2152,72 @@ Este registro puede copiarse en una matriz de validación para comparar rutas, t
 
 
 
+
+<style>
+tw-hook[name^="tw_"] {
+  display: none;
+}
+
+#aera_boton_envio {
+  background: #8F2E3D;
+  color: white;
+  border: none;
+  padding: 14px 22px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 16px;
+  margin-top: 24px;
+}
+
+#aera_estado_envio {
+  margin-top: 12px;
+  font-weight: bold;
+}
+</style>
+
+|tw_id_participante>[(print: $idJugador)]
+|tw_perfil_principal>[(print: $perfilPrincipal)]
+|tw_escucha>[(print: $escucha)]
+|tw_cuidado>[(print: $cuidado)]
+|tw_control>[(print: $control)]
+|tw_riesgo>[(print: $riesgo)]
+|tw_exploracion>[(print: $exploracion)]
+|tw_memoria>[(print: $memoria)]
+|tw_sigilo>[(print: $sigilo)]
+|tw_vinculo>[(print: $vinculo)]
+|tw_navegacion_auxiliar>[(print: $navegacionAuxiliar)]
+|tw_reintentos>[(print: $reintentos)]
+|tw_ruta_compacta>[(print: $rutaCompacta)]
+|tw_registro_exportable>[(print: $registroExportable)]
+
+<form 
+  id="form_resultados_twine"
+  method="POST"
+  action="https://script.google.com/macros/s/AKfycbzgpo29_qwNLdmJLt6kHwT4lzBEaVSx3oDDA5ydl-NCuY7ydaUmeONIanncUul7SyhhYg/exec"
+  target="_blank"
+>
+  <input type="hidden" name="id_participante" id="f_id_participante">
+  <input type="hidden" name="perfil_principal" id="f_perfil_principal">
+  <input type="hidden" name="escucha" id="f_escucha">
+  <input type="hidden" name="cuidado" id="f_cuidado">
+  <input type="hidden" name="control_valor" id="f_control">
+  <input type="hidden" name="riesgo" id="f_riesgo">
+  <input type="hidden" name="exploracion" id="f_exploracion">
+  <input type="hidden" name="memoria" id="f_memoria">
+  <input type="hidden" name="sigilo" id="f_sigilo">
+  <input type="hidden" name="vinculo" id="f_vinculo">
+  <input type="hidden" name="navegacion_auxiliar" id="f_navegacion_auxiliar">
+  <input type="hidden" name="reintentos" id="f_reintentos">
+  <input type="hidden" name="ruta_compacta" id="f_ruta_compacta">
+  <input type="hidden" name="registro_exportable" id="f_registro_exportable">
+
+  <button id="aera_boton_envio" type="button" onclick="enviarResultadosTwine()">
+    Enviar resultados de mi partida
+  </button>
+</form>
+
+<p id="aera_estado_envio"></p>
 
 </tw-passagedata><tw-passagedata pid="122" name="BAD Reinicio" tags="Fallo" position="600,700" size="160,120">La ruta se ha quebrado o el jugador llegó a un punto de reintento.
 
